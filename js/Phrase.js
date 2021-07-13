@@ -29,6 +29,7 @@ class Phrase {
                 // add  <li class="hide letter y">y</li> then append newLi to ul
                 let newLiLetter =  document.createElement("li");
                 newLiLetter.className =`hide letter ${this.phrase[i]}`;
+                newLiLetter.textContent = `${this.phrase[i]}`;
                 ul.append(newLiLetter);
                 
             }
@@ -57,14 +58,15 @@ class Phrase {
         * @param (string) letter - Letter to display
     */
 
-    showMatchedLetter(selectedLetter){
+    showMatchedLetter(selectedLetter, findElement){
       // result from checkLetter();
-      let findElement;
+     
       for(let i=0; i < this.phrase.length; i++){
         if(this.phrase[i] == selectedLetter){
            findElement =  document.querySelectorAll(`li.${this.phrase[i]}`);
             for(let i = 0; i< findElement.length; i++){
                 findElement[i].classList.replace("hide", "show");
+                
             }      
         }   
       }   

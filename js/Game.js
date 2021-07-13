@@ -43,23 +43,24 @@ class Game {
 
        let keyLetter = document.querySelectorAll('.key');
        let selectedLetter = '';
+       let findElement; // stores list of matching elements. Using this to pass in as parameter to other methods
        keyLetter.forEach(key => {
            key.addEventListener('click', (event)=>{
                selectedLetter = event.target.innerText;
                this.activePhrase.checkLetter(selectedLetter); //returns true/false
-               this.activePhrase.showMatchedLetter(selectedLetter);
+               this.activePhrase.showMatchedLetter(selectedLetter, findElement);
            });
        });
 
-       // 
-  
+       // reusable variable to store s
+ 
     
     }
     removeLife(){
         
     }
     chekForWin(){
-        
+        // if all revealed ? return true / false
     }
     gameOver(){
 
