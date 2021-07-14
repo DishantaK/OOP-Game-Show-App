@@ -70,6 +70,7 @@ class Game {
     removeLife(){
 
         let heart = document.querySelectorAll(".tries img[src*='live']");
+        console.log(heart);
         heart[0].src = "./images/lostHeart.png";
         
        
@@ -117,7 +118,7 @@ class Game {
             ul.innerHTML = ``;
        
             // Heart reset
-            document.querySelectorAll("img").forEach(img => {
+            document.querySelectorAll(".tries img").forEach(img => {
                 img.src = "./images/liveHeart.png"
             });
             
