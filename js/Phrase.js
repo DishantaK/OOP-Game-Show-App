@@ -44,10 +44,10 @@ class Phrase {
 
     checkLetter(selectedLetter) {
        if(this.phrase.includes(selectedLetter)){
-        console.log('true')  //Leaving for Testing / grading 
+        // console.log('true')  //Leaving for Testing / grading 
         return true
        }else {
-        console.log('false')  //Leaving for Testing / grading 
+        // console.log('false')  //Leaving for Testing / grading 
         return false
        }
        
