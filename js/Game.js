@@ -43,7 +43,7 @@ class Game {
        
         // handle selection 
 
-       let keyLetter = document.querySelectorAll('.key');
+       let keyLetter = document.querySelectorAll('#qwerty button');
        let selectedLetter = '';
        
        let findElement; // stores list of matching elements. Using this to pass in as parameter to other methods
@@ -51,15 +51,20 @@ class Game {
            key.addEventListener('click', (event)=>{
                key.classList.add("chosen");
                selectedLetter = event.target.innerText;
-               this.activePhrase.checkLetter(selectedLetter); //returns true/false
+              // this.activePhrase.checkLetter(selectedLetter); //returns true/false
                this.activePhrase.showMatchedLetter(selectedLetter, findElement);
-                    if( this.activePhrase.checkLetter(selectedLetter) === false){
-                       this.removeLife();
-                       key.classList.replace("chosen","wrong");
+                    if( this.activePhrase.checkLetter(selectedLetter) === true){
+                        console.log('inside check letter conditional true')
+                        if(this.chekForWin() === true){
+                            this.gameOver(true);
+                          
+                       }
+                    } else {
+                        this.removeLife();
+                        key.classList.add("wrong");
+                        key.classList.remove("chosen");
                     }
-               if(this.chekForWin() === true){
-                    this.gameOver(true);
-               }
+              
            });
        });
 
@@ -69,16 +74,14 @@ class Game {
     }
     removeLife(){
 
-        let heart = document.querySelectorAll(".tries img[src*='live']");
-        console.log(heart);
-        heart[0].src = "./images/lostHeart.png";
+      
+        let heart = document.querySelectorAll(".tries img");
+        heart[this.missed].src="images/lostHeart.png";
         
-       
-        this.missed++
-            if(this.missed == 5){
-                this.gameOver(false);
-                console.log("Game over")
-            }
+        this.missed++;
+        if (this.missed>=5){
+            this.gameOver(false);
+        }
 
 
 
@@ -90,10 +93,10 @@ class Game {
             let totalEntry = classesLength.length + spaceLength;
         
         if (phraseLength != totalEntry){
-            //  console.log('no win'); Left for testing/  grading
+            console.log('no win'); //Left for testing/  grading
              return false
             } else {
-            //   console.log('win'); Left for testing/  grading
+              console.log('win'); //Left for testing/  grading
               return true
             }
     }
@@ -112,20 +115,22 @@ class Game {
  
        }
       
-       
+            // Game resets 
+
             // Ul Reset
             let ul = document.getElementById("phrase").firstElementChild;
             ul.innerHTML = ``;
        
             // Heart reset
-            document.querySelectorAll(".tries img").forEach(img => {
+            document.querySelectorAll("#scoreboard img").forEach(img => {
                 img.src = "./images/liveHeart.png"
             });
-            
-            // Button Reset 
-            document.querySelectorAll('.key').forEach(key => {
-                key.classList.remove("chosen", "wrong");
-            });
+      
+
+            const playButton=document.querySelector('#btn__reset');
+            playButton.textContent = 'Play Again'
+
+            this.missed = 0;
 
      
 
