@@ -7,11 +7,11 @@ class Game {
         //missed, phrases, active phrase
         this.missed = 0; 
         this.phrases = [
-            {phrase: 'One ring to rule them all' },
-            {phrase: 'As a man thinketh so is he' },
-            {phrase: 'Money Power Respect' },
-            {phrase: 'All is well' },
-            {phrase: 'Blood is thicker than water' }
+            new Phrase( 'One ring to rule them all' ),
+            new Phrase( 'As a man thinketh so is he') ,
+            new Phrase( 'Money Power Respect') ,
+            new Phrase( 'All is well') ,
+            new Phrase( 'Blood is thicker than water' )
         ];
         this.activePhrase = null;
     }
@@ -21,9 +21,9 @@ class Game {
     startGame(){
         const overlay = document.getElementById("overlay");
         overlay.style.display = 'none'; 
-
+        
         const randomPhrase = this.getRandomPhrase();
-        this.activePhrase = new Phrase(randomPhrase.phrase);
+        this.activePhrase = randomPhrase;
         this.activePhrase.addPhraseToDisplay();
 
     }
@@ -45,21 +45,23 @@ class Game {
 
        let keyLetter = document.querySelectorAll('#qwerty button');
        let selectedLetter = '';
-       
        let findElement; // stores list of matching elements. Using this to pass in as parameter to other methods
        keyLetter.forEach(key => {
            key.addEventListener('click', (event)=>{
-               key.classList.add("chosen");
+            //    key.classList.add("chosen");
+               key.disabled = true;
                selectedLetter = event.target.innerText;
               // this.activePhrase.checkLetter(selectedLetter); //returns true/false
                this.activePhrase.showMatchedLetter(selectedLetter, findElement);
                     if( this.activePhrase.checkLetter(selectedLetter) === true){
                         console.log('inside check letter conditional true')
-                        if(this.chekForWin() === true){
-                            this.gameOver(true);
-                          
-                       }
-                    } else {
+                        key.classList.add("chosen");
+                        key.classList.remove("wrong");
+
+                        if(this.checkForWin() === true){
+                            this.gameOver(true) }
+                    } else { // running twice 
+                        console.log('testing false')
                         this.removeLife();
                         key.classList.add("wrong");
                         key.classList.remove("chosen");
@@ -86,7 +88,7 @@ class Game {
 
 
     }
-    chekForWin(){
+    checkForWin(){
         let phraseLength = this.activePhrase.phrase.length; 
         let classesLength = document.querySelectorAll("li.show");
         let spaceLength = document.querySelectorAll("li.space").length;
@@ -97,6 +99,7 @@ class Game {
              return false
             } else {
               console.log('win'); //Left for testing/  grading
+              this.missed = 0;
               return true
             }
     }
@@ -106,16 +109,18 @@ class Game {
         let gameOverMsg = document.getElementById("game-over-message");
     
        if(result === false) {
-            finalScreen.classList.replace("start", "lose");
+            finalScreen.classList.add("lose");
+            finalScreen.classList.remove("win");
             gameOverMsg.textContent = 'Sorry, try again next time'; 
        } else {
            
-        finalScreen.classList.replace("start", "win");
+        finalScreen.classList.add("win");
+        finalScreen.classList.remove("lose");
             gameOverMsg.textContent = 'Great Job'; 
  
        }
       
-            // Game resets 
+            // // Game resets
 
             // Ul Reset
             let ul = document.getElementById("phrase").firstElementChild;

@@ -43,14 +43,8 @@ class Phrase {
     */
 
     checkLetter(selectedLetter) {
-       if(this.phrase.includes(selectedLetter)){
-        console.log('check letter includes')  //Leaving for Testing / grading 
-        return true
-       }else {
-        console.log('check letter does not include')  //Leaving for Testing / grading 
-        return false
-       }
-       
+       return this.phrase.includes(selectedLetter)
+     
     }
 
     /**
@@ -65,12 +59,15 @@ class Phrase {
         if(this.phrase[i] == selectedLetter){
            findElement =  document.querySelectorAll(`li.${this.phrase[i]}`);
             for(let i = 0; i< findElement.length; i++){
-                findElement[i].classList.replace("hide", "show");
+                findElement[i].classList.remove("hide");
+                findElement[i].classList.add("show");
                 
             }      
         }   
       }   
     }
+
+    
    
 
 }
