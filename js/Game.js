@@ -21,7 +21,6 @@ class Game {
     startGame(){
         const overlay = document.getElementById("overlay");
         overlay.style.display = 'none'; 
-        
         const randomPhrase = this.getRandomPhrase();
         this.activePhrase = randomPhrase;
         this.activePhrase.addPhraseToDisplay();
@@ -79,6 +78,7 @@ class Game {
       
         let heart = document.querySelectorAll(".tries img");
         heart[this.missed].src="images/lostHeart.png";
+       
         
         this.missed++;
         if (this.missed>=5){
@@ -104,6 +104,9 @@ class Game {
             }
     }
     gameOver(result){
+
+  
+
         let finalScreen = document.getElementById("overlay");
         finalScreen.style.display ='flex';
         let gameOverMsg = document.getElementById("game-over-message");
@@ -136,7 +139,7 @@ class Game {
             playButton.textContent = 'Play Again'
 
             this.missed = 0;
-
+     
      
 
        
